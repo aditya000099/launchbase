@@ -39,7 +39,7 @@ export default function Home() {
           />
           <div className="flex gap-4 items-center animate-slide-in" style={{animationDelay: '0.2s'}}>
             <Link
-              className="rounded-full border border-accent-light dark:border-accent-dark transition-colors flex items-center justify-center bg-accent-light dark:bg-accent-dark text-white gap-2 hover:bg-opacity-90 dark:hover:bg-opacity-90 text-sm sm:text-base h-10 sm:h-12 px-6 sm:px-8"
+              className="rounded-full border border-accent-light dark:text-white dark:border-accent-dark transition-colors flex items-center justify-center bg-accent-light dark:bg-accent-dark text-white gap-2 hover:bg-opacity-90 dark:hover:bg-opacity-90 text-sm sm:text-base h-10 sm:h-12 px-6 sm:px-8"
               href={user ? "/dashboard" : "/signup"}
             >
               Get Started

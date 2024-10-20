@@ -30,11 +30,11 @@ export default function Dashboard() {
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center">
             <Image
-              src="/next.svg"
+              src="/starter-saas-logo.png"
               alt="Next.js Logo"
-              width={100}
-              height={20}
-              className="dark:invert mr-4"
+              width={40}
+              height={10}
+              className=" mr-4 rounded-full"
             />
             <h1 className="text-2xl font-bold">Dashboard</h1>
           </Link>

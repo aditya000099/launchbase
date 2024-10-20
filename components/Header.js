@@ -16,19 +16,19 @@ export default function Header({ user }) {
             height={40}
             className="mr-4"
           />
-          <h1 className="text-2xl font-bold">Starter SaaS</h1>
+          <h1 className="dark:text-white text-2xl font-bold">SaaS Starter</h1>
         </Link>
         <nav className="hidden md:flex space-x-4">
           <Link href="/" className="hover:text-accent-light dark:hover:text-accent-dark">Home</Link>
           <Link href="/pricing" className="hover:text-accent-light dark:hover:text-accent-dark">Pricing</Link>
-          <Link href="/features" className="hover:text-accent-light dark:hover:text-accent-dark">Features</Link>
-          <Link href="/about" className="hover:text-accent-light dark:hover:text-accent-dark">About</Link>
+          <Link href="/dashboard" className="hover:text-accent-light dark:hover:text-accent-dark">Dashboard</Link>
+          <Link href="/account" className="hover:text-accent-light dark:hover:text-accent-dark">Account</Link>
         </nav>
         <div className="flex items-center gap-4">
           <ThemeToggle />
           {user ? (
-            <Link href="/dashboard" className="text-sm font-medium">
-              Dashboard
+            <Link href="/account" className="text-sm font-medium">
+              Account
             </Link>
           ) : (
             <>

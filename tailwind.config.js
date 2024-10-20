@@ -19,7 +19,7 @@ module.exports = {
         },
         text: {
           light: '#1A0208', // Very dark red (almost black)
-          dark: '#FFCCD5', // Very light pink
+          dark: '#ffffff', // Very light pink
         },
         background: {
           light: '#FFFFFF', // White
