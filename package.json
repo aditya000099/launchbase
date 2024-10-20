@@ -5,14 +5,18 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "appwrite": "^16.0.2",
     "express-rate-limit": "^7.4.1",
+    "framer-motion": "^11.11.9",
     "mailgun-js": "^0.22.0",
     "next": "14.2.15",
+    "next-seo": "^6.6.0",
+    "next-sitemap": "^4.2.3",
     "razorpay": "^2.9.4",
     "react": "^18",
     "react-dom": "^18",

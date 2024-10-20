@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { account } from '../../lib/appwrite';
 import Link from 'next/link';
+import Image from 'next/image';
 import ThemeToggle from '../../components/ThemeToggle';
 
 export default function Dashboard() {
@@ -27,22 +28,22 @@ export default function Dashboard() {
     <div className="min-h-screen bg-background-light dark:bg-background-dark">
       <header className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark p-4 border-b border-accent-light dark:border-accent-dark">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/next.svg"
+              alt="Next.js Logo"
+              width={100}
+              height={20}
+              className="dark:invert mr-4"
+            />
+            <h1 className="text-2xl font-bold">Dashboard</h1>
+          </Link>
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            {user ? (
+            {user && (
               <Link href="/account" className="text-sm font-medium">
                 Account
               </Link>
-            ) : (
-              <>
-                <Link href="/login" className="text-sm font-medium">
-                  Login
-                </Link>
-                <Link href="/signup" className="text-sm font-medium">
-                  Sign Up
-                </Link>
-              </>
             )}
           </div>
         </div>
