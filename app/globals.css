@@ -2,22 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold;
+}
+
+a {
+  @apply text-accent-light dark:text-accent-dark hover:underline;
+}
+
+button {
+  @apply bg-accent-light dark:bg-accent-dark text-white hover:opacity-90 transition-opacity duration-200;
+}
+
+.metallic-text {
+  background: linear-gradient(to bottom, #FF8FA3, #FF4D6D, #FF8FA3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 0px 10px rgba(255,77,109,0.4);
 }
 
 @layer utilities {
