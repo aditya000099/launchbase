@@ -7,6 +7,48 @@ import { account } from '../lib/appwrite';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+const features = [
+  {
+    title: "Next.js 13+ App Router",
+    description: "Built with the latest Next.js features including App Router and React Server Components",
+    icon: "🚀"
+  },
+  {
+    title: "Authentication",
+    description: "Secure authentication system with email verification and password reset",
+    icon: "🔐"
+  },
+  {
+    title: "Payment Integration",
+    description: "Stripe and PayPal integration for subscription management",
+    icon: "💳"
+  },
+  {
+    title: "Email System",
+    description: "Mailgun integration with customizable email templates",
+    icon: "📧"
+  },
+  {
+    title: "Dark Mode",
+    description: "Built-in dark mode support with system preference detection",
+    icon: "🌓"
+  },
+  {
+    title: "Responsive Design",
+    description: "Mobile-first approach using Tailwind CSS",
+    icon: "📱"
+  }
+];
+
+const techStack = [
+  { name: "Next.js", icon: "/nextjs-icon.svg" },
+  { name: "React", icon: "/react-icon.svg" },
+  { name: "Tailwind CSS", icon: "/tailwind-icon.svg" },
+  { name: "Stripe", icon: "/stripe-icon.svg" },
+  { name: "PayPal", icon: "/paypal-icon.svg" },
+  { name: "Mailgun", icon: "/mailgun-icon.svg" }
+];
+
 export default function Home() {
   const [user, setUser] = useState(null);
 
@@ -26,26 +68,64 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background-light dark:bg-background-dark">
       <Header user={user} />
-      <main className="flex-grow container mx-auto mt-16 p-4 animate-fade-in">
-        <h1 className="text-6xl font-bold text-center mb-8 metallic-text">Welcome to Starter SaaS</h1>
-        <div className="flex flex-col items-center gap-8">
-          <Image
-            src="/starter-saas-logo.png"
-            alt="Starter SaaS logo"
-            width={180}
-            height={180}
-            priority
-            className="animate-slide-in rounded-full"
-          />
-          <div className="flex gap-4 items-center animate-slide-in" style={{animationDelay: '0.2s'}}>
+      <main className="flex-grow container mx-auto mt-24 p-4">
+        {/* Hero Section */}
+        <section className="text-center mb-16 pt-8">
+          <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-accent-light to-purple-600 dark:from-accent-dark dark:to-purple-400 text-transparent bg-clip-text">
+            Launch Base
+          </h1>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            A complete SaaS starter kit built with Next.js, featuring authentication, 
+            payments, and email systems - everything you need to launch your SaaS product.
+          </p>
+          <div className="flex gap-4 justify-center">
             <Link
-              className="rounded-full border border-accent-light dark:text-white dark:border-accent-dark transition-colors flex items-center justify-center bg-accent-light dark:bg-accent-dark text-white gap-2 hover:bg-opacity-90 dark:hover:bg-opacity-90 text-sm sm:text-base h-10 sm:h-12 px-6 sm:px-8"
               href={user ? "/dashboard" : "/signup"}
+              className="px-8 py-3 rounded-full bg-accent-light dark:bg-accent-dark text-white hover:opacity-90 transition-opacity"
             >
               Get Started
             </Link>
+            <Link
+              href="https://github.com/aditya000099/launch-base"
+              className="px-8 py-3 rounded-full border border-accent-light dark:border-accent-dark hover:bg-accent-light/10 dark:hover:bg-accent-dark/10 transition-colors"
+            >
+              View on GitHub
+            </Link>
           </div>
-        </div>
+        </section>
+
+        {/* Features Grid */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-center mb-8">Features</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="p-6 rounded-2xl border border-accent-light/20 dark:border-accent-dark/20 hover:border-accent-light dark:hover:border-accent-dark transition-colors">
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Tech Stack */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-center mb-8">Tech Stack</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+            {techStack.map((tech, index) => (
+              <div key={index} className="flex flex-col items-center p-4">
+                <Image
+                  src={tech.icon}
+                  alt={tech.name}
+                  width={48}
+                  height={48}
+                  className="mb-2"
+                />
+                <span className="text-sm font-medium">{tech.name}</span>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
       <Footer />
     </div>

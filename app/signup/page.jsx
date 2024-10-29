@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { account, databases } from '../../lib/appwrite';
+import { account } from '../../lib/appwrite';
+import { createUserDocument } from '../../lib/appwrite/user-management';
 import { ID } from 'appwrite';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,6 +12,7 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,17 +30,28 @@ export default function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
+      // Create Appwrite account
       const response = await account.create(ID.unique(), email, password, name);
-      await databases.createDocument(
-        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
-        process.env.NEXT_PUBLIC_APPWRITE_USERS_COLLECTION_ID,
-        response.$id,
-        { name, email }
-      );
+      
+      // Create user document in the database
+      await createUserDocument(response.$id, {
+        name,
+        email,
+        subscriptionTier: 'free',
+        subscriptionStatus: 'inactive',
+        customerId: null,
+        subscriptionEndDate: null
+      });
+
+      // Create session (log in)
+      await account.createEmailPasswordSession(email, password);
       router.push('/dashboard');
     } catch (error) {
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
