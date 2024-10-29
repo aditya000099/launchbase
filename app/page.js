@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 
 const features = [
   {
-    title: "Next.js 13+ App Router",
+    title: "Next.js 14",
     description: "Built with the latest Next.js features including App Router and React Server Components",
     icon: "🚀"
   },
