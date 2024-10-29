@@ -24,10 +24,10 @@ async function setupAppwrite(projectId, apiKey) {
       'users',
       'Users',
       [
-        sdk.Permission.create(sdk.Role.users()),
-        sdk.Permission.read(sdk.Role.users()),
-        sdk.Permission.update(sdk.Role.users()),
-        sdk.Permission.delete(sdk.Role.users())
+        sdk.Permission.create(sdk.Role.any()),
+        sdk.Permission.read(sdk.Role.any()),
+        sdk.Permission.update(sdk.Role.any()),
+        sdk.Permission.delete(sdk.Role.any())
       ]
     );
 
@@ -87,10 +87,10 @@ async function setupAppwrite(projectId, apiKey) {
       'subscriptions',
       'Subscriptions',
       [
-        sdk.Permission.create(sdk.Role.users()),
-        sdk.Permission.read(sdk.Role.users()),
-        sdk.Permission.update(sdk.Role.users()),
-        sdk.Permission.delete(sdk.Role.users())
+        sdk.Permission.create(sdk.Role.any()),
+        sdk.Permission.read(sdk.Role.any()),
+        sdk.Permission.update(sdk.Role.any()),
+        sdk.Permission.delete(sdk.Role.any())
       ]
     );
 
@@ -155,10 +155,10 @@ async function setupAppwrite(projectId, apiKey) {
       'payments',
       'Payments',
       [
-        sdk.Permission.create(sdk.Role.users()),
-        sdk.Permission.read(sdk.Role.users()),
-        sdk.Permission.update(sdk.Role.users()),
-        sdk.Permission.delete(sdk.Role.users())
+        sdk.Permission.create(sdk.Role.any()),
+        sdk.Permission.read(sdk.Role.any()),
+        sdk.Permission.update(sdk.Role.any()),
+        sdk.Permission.delete(sdk.Role.any())
       ]
     );
 

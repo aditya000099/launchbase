@@ -23,7 +23,7 @@ module.exports = {
         },
         background: {
           light: '#FFFFFF', // White
-          dark: '#000000', // Black
+          dark: '#0E1111', // Black
         },
       },
       fontFamily: {

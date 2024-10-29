@@ -27,15 +27,15 @@ export default function Header({ user }) {
         <div className="flex items-center gap-4">
           <ThemeToggle />
           {user ? (
-            <Link href="/account" className="px-4 py-2 rounded-full bg-accent-light dark:bg-accent-dark text-white hover:opacity-90 transition-opacity">
+            <Link href="/account" className="px-4 py-2 rounded-full bg-accent-light dark:bg-accent-dark dark:text-white text-white hover:opacity-90 transition-opacity">
               Account
             </Link>
           ) : (
             <>
-              <Link href="/login" className="px-4 py-2 rounded-full border border-accent-light dark:border-accent-dark hover:bg-accent-light/10 dark:hover:bg-accent-dark/10 transition-colors">
+              <Link href="/login" className="px-4 py-2 rounded-full border dark:text-white border-accent-light dark:border-accent-dark hover:bg-accent-light/10 dark:hover:bg-accent-dark/10 transition-colors">
                 Login
               </Link>
-              <Link href="/signup" className="px-4 py-2 rounded-full bg-accent-light dark:bg-accent-dark text-white hover:opacity-90 transition-opacity">
+              <Link href="/signup" className="px-4 py-2 rounded-full bg-accent-light dark:bg-accent-dark dark:text-white text-white hover:opacity-90 transition-opacity">
                 Sign Up
               </Link>
             </>

@@ -81,12 +81,12 @@ export default function Home() {
           <div className="flex gap-4 justify-center">
             <Link
               href={user ? "/dashboard" : "/signup"}
-              className="px-8 py-3 rounded-full bg-accent-light dark:bg-accent-dark text-white hover:opacity-90 transition-opacity"
+              className="px-8 py-3 rounded-full bg-accent-light dark:bg-accent-dark dark:text-white text-white hover:opacity-90 transition-opacity"
             >
               Get Started
             </Link>
             <Link
-              href="https://github.com/aditya000099/launch-base"
+              href="https://github.com/aditya000099/starter-code"
               className="px-8 py-3 rounded-full border border-accent-light dark:border-accent-dark hover:bg-accent-light/10 dark:hover:bg-accent-dark/10 transition-colors"
             >
               View on GitHub
