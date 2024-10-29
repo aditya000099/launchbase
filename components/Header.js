@@ -10,7 +10,7 @@ export default function Header({ user }) {
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <Image
-            src="/starter-saas-logo.png"
+            src="/icon.svg"
             alt="Launch Base Logo"
             width={40}
             height={40}

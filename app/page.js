@@ -71,7 +71,7 @@ export default function Home() {
       <main className="flex-grow container mx-auto mt-24 p-4">
         {/* Hero Section */}
         <section className="text-center mb-16 pt-8">
-          <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-accent-light to-purple-600 dark:from-accent-dark dark:to-purple-400 text-transparent bg-clip-text">
+          <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-accent-light to-pink-500 dark:from-accent-dark dark:to-pink-600 text-transparent bg-clip-text">
             Launch Base
           </h1>
           <p className="text-xl mb-8 max-w-2xl mx-auto">

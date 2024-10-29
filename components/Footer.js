@@ -10,8 +10,8 @@ export default function Footer() {
         <div className="flex flex-wrap justify-between items-center">
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <Image
-              src="/starter-saas-logo.png"
-              alt="Starter SaaS Logo"
+              src="/icon.svg"
+              alt="Launch Base Logo"
               width={40}
               height={40}
               className="mb-2"
