@@ -86,7 +86,7 @@ export default function Home() {
               Get Started
             </Link>
             <Link
-              href="https://github.com/aditya000099/starter-code"
+              href="https://github.com/aditya000099/launchbase"
               className="px-8 py-3 rounded-full border border-accent-light dark:border-accent-dark hover:bg-accent-light/10 dark:hover:bg-accent-dark/10 transition-colors"
             >
               View on GitHub
