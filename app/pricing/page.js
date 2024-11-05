@@ -8,6 +8,7 @@ import Footer from '../../components/Footer';
 import { motion } from 'framer-motion';
 import { loadStripe } from '@stripe/stripe-js';
 import Image from 'next/image';
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
@@ -33,10 +34,11 @@ const plans = [
 ];
 
 export default function Pricing() {
-  const [selectedGateway, setSelectedGateway] = useState('stripe');
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handlePayment = async (plan) => {
+  const handleStripePayment = async (plan) => {
     try {
       setIsProcessing(true);
       const stripe = await stripePromise;
@@ -49,29 +51,60 @@ export default function Pricing() {
         body: JSON.stringify({
           name: plan.name,
           amount: Math.round(plan.price * 100),
+          gateway: 'stripe',
+          currency: 'inr'
         }),
       });
 
       const session = await response.json();
 
-      if (session.error) {
-        throw new Error(session.error);
-      }
+      if (session.error) throw new Error(session.error);
 
-      // Redirect to Stripe Checkout
       const result = await stripe.redirectToCheckout({
         sessionId: session.id
       });
 
-      if (result.error) {
-        throw new Error(result.error.message);
-      }
+      if (result.error) throw new Error(result.error.message);
     } catch (error) {
-      console.error('Payment error:', error);
+      console.error('Stripe payment error:', error);
       alert('Payment failed. Please try again.');
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handlePayPalPayment = async (data, actions) => {
+    try {
+      const response = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: selectedPlan.name,
+          amount: selectedPlan.price,
+          gateway: 'paypal',
+          currency: 'USD'
+        }),
+      });
+
+      const orderData = await response.json();
+      
+      if (orderData.error) {
+        throw new Error(orderData.error);
+      }
+      
+      return orderData.id;
+    } catch (error) {
+      console.error('PayPal payment error:', error);
+      alert('Failed to create PayPal order. Please try again.');
+      return null;
+    }
+  };
+
+  const handleGetStarted = (plan) => {
+    setSelectedPlan(plan);
+    setShowPaymentModal(true);
   };
 
   return (
@@ -81,6 +114,82 @@ export default function Pricing() {
         description="Choose the perfect plan for your needs"
       />
       <Header />
+      
+      {/* Payment Modal */}
+      {showPaymentModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white dark:bg-gray-800 p-6 rounded-2xl max-w-md w-full mx-4"
+          >
+            <h3 className="text-xl font-bold mb-4">Choose Payment Method</h3>
+            <div className="space-y-4">
+              <button
+                onClick={() => {
+                  setShowPaymentModal(false);
+                  handleStripePayment(selectedPlan);
+                }}
+                disabled={isProcessing}
+                className="w-full flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              >
+                <Image src="/stripe-p.svg" alt="Stripe" width={60} height={24} />
+                Pay with Stripe
+              </button>
+              
+              <div className="w-full">
+                <PayPalButtons
+                  style={{ layout: "horizontal" }}
+                  createOrder={handlePayPalPayment}
+                  onApprove={async (data, actions) => {
+                    try {
+                      setIsProcessing(true);
+                      const response = await fetch('/api/verify-payment', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          orderId: data.orderID,
+                          gateway: 'paypal',
+                          planName: selectedPlan.name
+                        }),
+                      });
+                      
+                      const result = await response.json();
+                      if (result.success) {
+                        window.location.href = `/success?orderId=${data.orderID}&gateway=paypal&plan=${encodeURIComponent(selectedPlan.name)}`;
+                      } else {
+                        throw new Error(result.error || 'Payment verification failed');
+                      }
+                    } catch (error) {
+                      console.error('PayPal verification error:', error);
+                      alert('Payment verification failed. Please contact support.');
+                    } finally {
+                      setIsProcessing(false);
+                    }
+                  }}
+                  onError={(err) => {
+                    console.error('PayPal Error:', err);
+                    alert('There was an error processing your payment. Please try again.');
+                  }}
+                  onCancel={() => {
+                    alert('Payment cancelled');
+                    setShowPaymentModal(false);
+                  }}
+                />
+              </div>
+            </div>
+            <button
+              onClick={() => setShowPaymentModal(false)}
+              className="mt-4 w-full text-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              Cancel
+            </button>
+          </motion.div>
+        </div>
+      )}
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -88,29 +197,6 @@ export default function Pricing() {
       >
         <h1 className="text-4xl font-bold text-center mb-8">Choose Your Plan</h1>
         
-        {/* <div className="flex justify-center gap-4 mb-8">
-          <button
-            onClick={() => setSelectedGateway('stripe')}
-            className={`px-4 py-2 rounded-full ${
-              selectedGateway === 'stripe' 
-                ? 'bg-accent-light dark:bg-accent-dark text-white' 
-                : 'border border-accent-light dark:border-accent-dark'
-            }`}
-          >
-            <Image src="/stripe-p.svg" alt="Stripe" width={60} height={24} />
-          </button>
-          <button
-            onClick={() => setSelectedGateway('paypal')}
-            className={`px-4 py-2 rounded-full ${
-              selectedGateway === 'paypal' 
-                ? 'bg-accent-light dark:bg-accent-dark text-white' 
-                : 'border border-accent-light dark:border-accent-dark'
-            }`}
-          >
-            <Image src="/paypal-p.svg" alt="PayPal" width={60} height={24} />
-          </button>
-        </div> */}
-
         <div className="grid md:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
             <motion.div
@@ -140,7 +226,7 @@ export default function Pricing() {
                 ))}
               </ul>
               <button
-                onClick={() => handlePayment(plan)}
+                onClick={() => handleGetStarted(plan)}
                 disabled={isProcessing}
                 className="w-full bg-accent-light dark:bg-accent-dark text-white py-3 px-6 rounded-full hover:opacity-90 transition-opacity duration-200 text-center font-medium disabled:opacity-50"
               >

@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@paypal/react-paypal-js": "^8.7.0",
     "@stripe/stripe-js": "^4.9.0",
     "appwrite": "^16.0.2",
     "express-rate-limit": "^7.4.1",
