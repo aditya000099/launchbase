@@ -15,7 +15,6 @@ export default function Terms() {
       <Header />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-4">Terms and Conditions</h1>
-        <h1 className="text-3xl font-bold mb-4">Terms and Conditions</h1>
         {/* Add your terms and conditions content here */}
       </div>
       <Footer />

@@ -1,5 +1,8 @@
 'use client';
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from 'react';

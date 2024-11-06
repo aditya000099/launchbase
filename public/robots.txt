@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://launchbase-eight.com
+
+# Sitemaps
+Sitemap: https://launchbase-eight.com/sitemap.xml
+Sitemap: https://launchbase-eight.com/server-sitemap.xml

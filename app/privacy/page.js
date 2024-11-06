@@ -8,10 +8,10 @@ import Footer from '../../components/Footer';
 export default function Privacy() {
   return (
     <>
-      <NextSeo
+      {/* <NextSeo
         title="Privacy Policy"
         description="Privacy Policy for Your SaaS"
-      />
+      /> */}
       <Header />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>

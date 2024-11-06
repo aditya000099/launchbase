@@ -1,12 +1,17 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = "force-no-store";
+
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { account } from '../../lib/appwrite';
 import { updateUserSubscription, recordPayment } from '../../lib/appwrite/user-management';
 import { motion } from 'framer-motion';
+import { Suspense } from 'react';
 
-export default function SuccessPage() {
+// Create a client component for the payment processing logic
+function PaymentProcessor() {
   const [status, setStatus] = useState('processing');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -186,5 +191,20 @@ export default function SuccessPage() {
         )}
       </motion.div>
     </div>
+  );
+}
+
+// Main page component
+export default function SuccessPage() {
+  return (
+    <Suspense 
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-accent-light" />
+        </div>
+      }
+    >
+      <PaymentProcessor />
+    </Suspense>
   );
 }

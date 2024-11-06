@@ -109,10 +109,10 @@ export default function Pricing() {
 
   return (
     <>
-      <NextSeo
+      {/* <NextSeo
         title="Pricing | Launch Base"
         description="Choose the perfect plan for your needs"
-      />
+      /> */}
       <Header />
       
       {/* Payment Modal */}
